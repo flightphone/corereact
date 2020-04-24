@@ -4,8 +4,14 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY . .
-RUN dotnet restore
+
 # copy everything else and build app
+RUN apt-get update
+RUN apt-get install curl
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash
+RUN apt-get install nodejs 
+
+RUN dotnet restore
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
