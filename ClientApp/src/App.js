@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
-
 import './custom.css'
+import map from './map.png'
+
 
 export default class App extends Component {
   static displayName = App.name;
@@ -13,6 +10,9 @@ export default class App extends Component {
   render () {
     return (
      <div>
+       <div>
+         <img src={map} height="400" />
+       </div>
         <FetchData/>
       </div>
     );

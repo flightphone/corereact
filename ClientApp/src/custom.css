@@ -12,3 +12,28 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.icon-undo{
+	background:url('./undo.png') no-repeat center center;
+}
+.icon-redo{
+  background:url('./redo.png') no-repeat center center;
+}  
+
+a.Belgorod_Oblast {
+  background:url('./flags/22px-Flag_of_Belgorod_Oblast.svg.png') left top no-repeat;
+}
+
+a.Bryansk_Oblast {
+  background:url('./flags/22px-Flag_of_Bryansk_Oblast.svg.png') left top no-repeat;
+}
+
+a.Vladimirskaya_Oblast {
+  background:url('./flags/22px-Flag_of_Vladimirskaya_Oblast.svg.png') left top no-repeat;
+}
+
+a.flag {
+  padding-left: 30px;
+  text-decoration: none;
+  color: white;
+  }

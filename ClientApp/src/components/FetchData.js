@@ -12,35 +12,88 @@ export class FetchData extends Component {
     this.populateWeatherData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderForecastsTable(forecasts, obj) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className='table table-dark table-bordered table-hover table-sm' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-            <th></th>
+            <td rowSpan='2' align="right" valign="bottom">По состоянию на 31.03.2019</td>
+            <td colSpan='2' align="right">Показатели</td>
+            <td colSpan='2' align="right">Бюджет</td>
+            <td colSpan='2' align="right">Контрактация</td>
+            <td colSpan='2' align="right">Сроки</td>
+            <td rowSpan='2'></td>
+          </tr>
+          <tr>
+            <td>План</td>
+            <td>Факт</td>
+            <td>План</td>
+            <td>Факт</td>
+            <td>План</td>
+            <td>Факт</td>
+            <td>План</td>
+            <td>Факт</td>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(function(forecast) {
+          {forecasts.map(function (forecast) {
             if (forecast.isChecked == null)
               forecast.isChecked = false;
-            if (!forecast.isChecked)
+            var btclass = "icon-redo";
+            if (forecast.isChecked == true)
+              btclass = "icon-undo";
             return (
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-              <td><input type="checkbox" onChange={
-                () => {
-                  forecast.isChecked = !forecast.isChecked;
+              <React.Fragment>
+                <tr key={forecast.id}>
+                  <td>{forecast.id}&nbsp;&nbsp;&nbsp;&nbsp;{forecast.name}</td>
+                  <td>План</td>
+                  <td>Факт</td>
+                  <td>План</td>
+                  <td>Факт</td>
+                  <td>План</td>
+                  <td>Факт</td>
+                  <td>План</td>
+                  <td>Факт</td>
+                  <td>
+                    <span class={btclass} style={{ cursor: "pointer" }}
+
+                      onClick={
+                        () => {
+                          forecast.isChecked = !forecast.isChecked;
+                          obj.setState({ forecasts: forecasts });
+                        }}
+
+                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  </td>
+                </tr>
+                {
+
+                  forecast.areas.map(function (area) {
+                    let fclass = "flag";
+                    if (area.flag)
+                      fclass = fclass + " " + area.flag;
+
+                    if (forecast.isChecked == true)
+                      return (
+                        <tr key={area.aoguid}>
+                          <td>
+
+                            <a href="#" class={fclass}>{area.name}</a>
+                          </td>
+                          <td>План</td>
+                          <td>Факт</td>
+                          <td>План</td>
+                          <td>Факт</td>
+                          <td>План</td>
+                          <td>Факт</td>
+                          <td>План</td>
+                          <td>Факт</td>
+                          <td></td>
+                        </tr>
+                      );
+                  })
                 }
-              } /></td>
-            </tr>
+              </React.Fragment>
             );
           })}
         </tbody>
@@ -51,16 +104,11 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderForecastsTable(this.state.forecasts, this);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Тестовое задание</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        <button onClick={() => {
-          this.setState({forecasts: this.state.forecasts})
-        }
-        }>OK</button>
+        Рейтинг исполнения планов
         {contents}
       </div>
     );
@@ -69,6 +117,6 @@ export class FetchData extends Component {
   async populateWeatherData() {
     const response = await fetch('weatherforecast');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ forecasts: data.data, loading: false });
   }
 }
