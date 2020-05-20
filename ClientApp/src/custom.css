@@ -13,6 +13,20 @@ code {
   border-color: #1861ac;
 }
 
+.toppanel {
+  position: absolute; 
+  left: 20px; 
+  top: 20px; 
+ }
+
+ .botpanel {
+  position: absolute; 
+  left: 0px; 
+  bottom: 10px; 
+  text-align: center;
+  width: 100%;
+ }
+
 .icon-undo{
 	background:url('./undo.png') no-repeat center center;
 }

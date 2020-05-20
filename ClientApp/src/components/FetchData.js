@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {PanelMap} from './PanelMap';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -14,6 +15,7 @@ export class FetchData extends Component {
 
   static renderForecastsTable(forecasts, obj) {
     return (
+      <React.Fragment>
       <table className='table table-dark table-bordered table-hover table-sm' aria-labelledby="tabelLabel">
         <thead>
           <tr>
@@ -98,6 +100,8 @@ export class FetchData extends Component {
           })}
         </tbody>
       </table>
+      <PanelMap/>
+      </React.Fragment>
     );
   }
 
