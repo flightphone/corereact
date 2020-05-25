@@ -6,7 +6,12 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { forecasts: [], loading: true, y: '2019' };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(value) {
+    this.setState({y:value});
   }
 
   componentDidMount() {
@@ -19,7 +24,7 @@ export class FetchData extends Component {
       <table className='table table-dark table-bordered table-hover table-sm' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <td rowSpan='2' align="right" valign="bottom">По состоянию на 31.03.2019</td>
+    <td rowSpan='2' align="right" valign="bottom">По состоянию на {obj.state.y} год</td>
             <td colSpan='2' align="right">Показатели</td>
             <td colSpan='2' align="right">Бюджет</td>
             <td colSpan='2' align="right">Контрактация</td>
@@ -100,7 +105,7 @@ export class FetchData extends Component {
           })}
         </tbody>
       </table>
-      <PanelMap/>
+      <PanelMap  onChange={obj.onChange}/>
       </React.Fragment>
     );
   }
